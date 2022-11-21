@@ -29,4 +29,4 @@ COPY . .
 
 WORKDIR /home/intellia/src
 
-ENTRYPOINT ["uvicorn", "optiplant.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "optiplant.main:app", "--host", "0.0.0.0", "--port", "5000"]

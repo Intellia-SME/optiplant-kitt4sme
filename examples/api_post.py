@@ -2,7 +2,7 @@ import json
 
 import requests
 
-URL = "http://localhost:8000/prediction"
+URL = "http://localhost:5000/prediction"
 
 data = {
     "data": [
