@@ -3,9 +3,12 @@ from typing import List
 
 import joblib
 from fipy.ngsi.entity import FloatAttr
+from fipy.ngsi.headers import FiwareContext
+from fipy.ngsi.orion import OrionClient
 
 from optiplant import MODEL_PATH
 
+from .config import orion_base_url
 from .ngsy import MachineStatus, MachineStatusPrediction
 
 logger = logging.getLogger(__name__)
@@ -53,3 +56,8 @@ def predict(machine_status: MachineStatus) -> MachineStatusPrediction:
 def process_update(updates: List[MachineStatus]) -> List[MachineStatusPrediction]:
     predictions = [predict(m) for m in updates]
     return predictions
+
+
+def update_context(ctx: FiwareContext, predictions: List[MachineStatus]):
+    orion = OrionClient(orion_base_url(), ctx)
+    orion.upsert_entities(predictions)

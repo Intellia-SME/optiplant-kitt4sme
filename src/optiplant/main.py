@@ -1,12 +1,14 @@
 import logging
+from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from fipy.ngsi.entity import EntityUpdateNotification
+from fipy.ngsi.headers import FiwareContext
 
 from optiplant import LOGGING_CONFIG, __description__, __version__
 
 from .ngsy import MachineStatus
-from .utilities import process_update
+from .utilities import process_update, update_context
 
 logging.config.fileConfig(LOGGING_CONFIG, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
@@ -26,9 +28,20 @@ def get_version():
 
 
 @app.post("/prediction")
-def make_prediction(notification: EntityUpdateNotification):
+def make_prediction(
+    notification: EntityUpdateNotification,
+    fiware_service: Optional[str] = Header(None),
+    fiware_servicepath: Optional[str] = Header(None),
+    fiware_correlator: Optional[str] = Header(None),
+):
+
+    ctx = FiwareContext(
+        service=str(fiware_service), service_path=str(fiware_servicepath), correlator=str(fiware_correlator)
+    )
+
     logger.info(f"Received new notification: {notification}")
 
     updated_machines = notification.filter_entities(MachineStatus)
     if updated_machines:
-        return process_update(updated_machines)
+        predictions = process_update(updated_machines)
+        update_context(ctx, predictions)
