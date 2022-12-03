@@ -16,7 +16,16 @@ logging.config.fileConfig(LOGGING_CONFIG, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Optiplant",
+    description="Optimised Predictive Maintenance for Manufacturing SMEs through Automated ML",
+    version="1.0.1",
+    contact={
+        "name": "Michael Loukeris",
+        "url": "http://www.intellia.gr",
+        "email": "mloukeris@intellia.gr",
+    },
+)
 
 
 @app.get("/")
