@@ -1,5 +1,6 @@
 # see docker-compose
-ORION_EXTERNAL_BASE_URL = "http://localhost:1026"
+ORION_EXTERNAL_BASE_URL = "http://10.172.209.202/orion/"  # k8s
+ORION_EXTERNAL_BASE_URL = "http://localhost:1026"  # docker-compose
 TENANT = "csic"
 ROUGHNATOR_INTERNAL_BASE_URL = "http://roughnator:8000"
 OPTIPLANT_INTERNAL_BASE_URL = "http://optiplant:5000"
