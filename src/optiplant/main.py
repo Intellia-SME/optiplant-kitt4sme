@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Optiplant",
-    description="Optimised Predictive Maintenance for Manufacturing SMEs through Automated ML",
+    description=__description__,
     version="1.0.1",
     contact={
         "name": "Michael Loukeris",
