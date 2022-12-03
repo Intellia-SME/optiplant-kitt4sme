@@ -25,5 +25,5 @@ def send_machine_entities():
 
 
 wait_on_orion()
-# create_subscriptions()
+create_subscriptions()
 send_machine_entities()

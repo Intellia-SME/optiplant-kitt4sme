@@ -1,4 +1,5 @@
 import logging
+import warnings
 from typing import Optional
 
 from fastapi import FastAPI, Header
@@ -10,6 +11,7 @@ from optiplant import LOGGING_CONFIG, __description__, __version__
 from .ngsy import MachineStatus
 from .utilities import process_update, update_context
 
+warnings.filterwarnings("ignore")
 logging.config.fileConfig(LOGGING_CONFIG, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
